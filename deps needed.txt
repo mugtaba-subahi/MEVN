@@ -1,0 +1,39 @@
+----------------Steps & all dependencies needed----------------
+
+client folder (creating vue project) -  1. npm install -g vue-cli 
+      																	2. vue init webpack 'name'
+
+server folder (making package.json file) - npm init -f
+
+server folder (installing nodemon and eslint) - npm install --save nodemon eslint
+server folder (initialising eslint) - node ./node_modules/eslint/bin/eslint.js --init
+server folder (see 1* for explanation)- npm install --save express body-parser cors morgan
+
+(optional)
+server folder (using nodemon and eslint on server) - In package.json, in scripts object, remove test line and replace with these 2: 
+							"start": "nodemon src/app.js --exec babel-node",
+							"lint": "eslint src/**/*.js",
+
+server folder (installing babel to compile es6 to es5) - npm install babel-node babel-preset-es2015 babel-preset-stage-2 babel-register --save
+
+joi (package) - validation (makes sure email is correct email etc)
+
+eslint
+
+-------------------------description-------------------------
+
+1. npm install - downloads all dependencies from package.json
+2. npm... -g - the -g means it will be installed (globally) where nodejs is installed on the computer
+3. npm... --save - the --save means it will be saved on the package.json in the current folder selected
+4. npm init -f - the -f forces an empty package.json file to be created
+
+-------------------middlewares explanation-------------------
+1*: 
+
+For those wondering about the Express middlewares -- app.use(middleware): morgan is a console logging framework for route requests, for example it'll show type of request. to what route, status code, and time to respond: GET /api/current_user 304 - - 3.872 ms. 
+
+(I prefer to use 'tiny' over 'combined', because combined gives you a bunch of unnecessary info for a dev env.) 
+
+BodyParser parses data coming from an AJAX request. For example, if the front end made an AJAX request with an email and password attached to the XMLHttpRequest's body... bodyParser allows us to access these parameters on the back end in the Express route handler callback function via req.body.email and req.body.password. 
+
+And, lastly, CORS -- Cross Origin Resource Sharing -- breaks the rule that one domain shouldn't be talking to another domain. For example, youtube.com shouldn't be trying to request/use videos, fonts, images, scripts...etc from twitch.tv. By utilizing CORS, you can bypass this built in browser feature -- in this case, allows the front end on PORT 8080 to be able to talk to the back end on PORT 8081.
